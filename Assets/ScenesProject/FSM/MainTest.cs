@@ -4,6 +4,7 @@ using AxGrid;
 using AxGrid.Base;
 using AxGrid.FSM;
 using AxGrid.Model;
+using AxGrid.Tools.Binders;
 using UnityEngine;
 
 namespace Test
@@ -61,12 +62,6 @@ namespace Test
             Debug.Log("On WORK!!!");
         }
 
-        [OnDelay(2f)]
-        private void SwitchNextState()
-        {
-            ChangeState();
-        }
-
         [OnUpdate]
         private void UpdateFSM()
         {
@@ -81,6 +76,31 @@ namespace Test
                 indexState = 0;
             }
             Settings.Fsm.Change(stateNames[indexState]);
+        }
+
+        [Bind("Work")]
+        private void GoWork()
+        {
+            ChangeIndex("Work");
+            Settings.Fsm.Change("GoingWork");
+        }
+        
+        [Bind("Store")]
+        private void GoStore()
+        {
+            ChangeIndex("Store");
+            Settings.Fsm.Change("Going Store");
+        }
+        
+        private void ChangeIndex(string s)
+        {
+            for (int i = 0; i < stateNames.Count; ++i)
+            {
+                if (stateNames[i].Equals(s))
+                {
+                    indexState = i;
+                }
+            }
         }
     }
 }

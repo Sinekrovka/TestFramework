@@ -61,7 +61,7 @@ namespace Test
             Path.Action(GoingToX)
                 .EasingLinear(time, A.position.x, B.position.x, _X => MovementX(_X))
                 .EasingLinear(time, A.position.y, B.position.y, _Y => MovementY(_Y))
-                .Wait(1f).Action(ChangeWalking);
+                .Action(ChangeWalking);
         }
     
         private void GoingToX()
