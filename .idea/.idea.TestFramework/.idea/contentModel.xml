@@ -16,10 +16,13 @@
         </e>
         <e p="ScenesProject" t="Include">
           <e p="FSM" t="Include">
-            <e p="HomeState.cs" t="Include" />
+            <e p="GoingHomeState.cs" t="Include" />
+            <e p="GoingStoreState.cs" t="Include" />
+            <e p="GoingWorkState.cs" t="Include" />
             <e p="MainTest.cs" t="Include" />
-            <e p="StoreState.cs" t="Include" />
-            <e p="WorkState.cs" t="Include" />
+            <e p="OnHome.cs" t="Include" />
+            <e p="OnStore.cs" t="Include" />
+            <e p="OnWork.cs" t="Include" />
           </e>
           <e p="HomeToWork.cs" t="Include" />
         </e>

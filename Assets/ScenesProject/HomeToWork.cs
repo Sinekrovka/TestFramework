@@ -2,6 +2,7 @@
 using AxGrid.Model;
 using AxGrid.Path;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Test
 {
@@ -9,12 +10,18 @@ namespace Test
     {
         private Transform A;
         private Transform B;
+
+        [SerializeField] private int money;
+        [SerializeField] private Text textMoney;
         
         [SerializeField] private Transform _player;
         [SerializeField] private float time;
     
         private float X;
         private float Y;
+
+        private int countCurrentMoney;
+        private int countIncrementMoney;
 
         [OnAwake]
         private void SetCountsXY()
@@ -33,6 +40,20 @@ namespace Test
         {
             B = other;
         }
+
+        public void SetIncrement(int inc)
+        {
+            countIncrementMoney = inc;
+        }
+
+        [OnUpdate]
+        private void MoneyController()
+        {
+            countCurrentMoney += countIncrementMoney * money;
+            textMoney.text = "Money: " + countCurrentMoney;
+
+        }
+        
         
         public void MovementCorutine()
         {
@@ -70,9 +91,13 @@ namespace Test
     
         private void ChangeWalking()
         {
-            Path = new CPath();
-            Debug.Log("Change State");
             MainTest.Inst.ChangeState();
+        }
+
+        public void WaitOnState(float time)
+        {
+            Path = new CPath();
+            Path.Action(GoingToX).Wait(time).Action(ChangeWalking);
         }
     }
 

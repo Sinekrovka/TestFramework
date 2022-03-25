@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Test
 {
-   [State("Home")]
-   public class HomeState : FSMState
+   [State("GoingHome")]
+   public class GoingHomeState : FSMState
    {
        public Transform A;
        public Transform B;
@@ -18,12 +18,13 @@ namespace Test
            homeToWorkController.SetA(A);
            homeToWorkController.SetB(B);
            homeToWorkController.MovementCorutine();
+           homeToWorkController.SetIncrement(0);
        }
-   
+       
        [Exit]
-       private void WeHome()
+       private void OnWork()
        {
-           
+           Debug.Log("GOING WORK");
        }
    } 
 

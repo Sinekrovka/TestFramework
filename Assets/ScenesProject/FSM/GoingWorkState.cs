@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Test
 {
-    [State("Store")]
-    public class StoreState : FSMState
+    [State("GoingWork")]
+    public class GoingWorkState : FSMState
     {
         public Transform A;
         public Transform B;
@@ -18,19 +18,13 @@ namespace Test
             homeToWorkController.SetA(A);
             homeToWorkController.SetB(B);
             homeToWorkController.MovementCorutine();
+            homeToWorkController.SetIncrement(0);
         }
-    
-        [Loop(0.5f, 0.5f)]
-        private void CountMoney()
-        {
-           
-        }
-        
-    
+
         [Exit]
-        private void WeHome()
+        private void OnStore()
         {
-            
+            Debug.Log("GOING STORE!");
         }
     }
 

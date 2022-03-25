@@ -24,25 +24,37 @@ namespace Test
         {
             Inst = this;
         
-            HomeState homeState = new HomeState();
-            homeState.A = store;
-            homeState.B = home;
-            homeState.homeToWorkController = _homeWorkController;
+            GoingHomeState homeStateGoing = new GoingHomeState();
+            homeStateGoing.A = store;
+            homeStateGoing.B = home;
+            homeStateGoing.homeToWorkController = _homeWorkController;
+            
+            OnHome _homeState = new OnHome();
+            _homeState._homeToWork = _homeWorkController;
         
-            WorkState workState = new WorkState();
-            workState.A = home;
-            workState.B = work;
-            workState.homeToWorkController = _homeWorkController;
+            GoingWorkState workStateGoing = new GoingWorkState();
+            workStateGoing.A = home;
+            workStateGoing.B = work;
+            workStateGoing.homeToWorkController = _homeWorkController;
+            
+            OnWork _workState = new OnWork();
+            _workState._homeToWork = _homeWorkController;
         
-            StoreState storeState = new StoreState();
-            storeState.A = work;
-            storeState.B = store;
-            storeState.homeToWorkController = _homeWorkController;
+            GoingStoreState storeStateGoing = new GoingStoreState();
+            storeStateGoing.A = work;
+            storeStateGoing.B = store;
+            storeStateGoing.homeToWorkController = _homeWorkController;
+            
+            OnStore _storeState = new OnStore();
+            _storeState._homeToWork = _homeWorkController;
         
             Settings.Fsm = new FSM();
-            Settings.Fsm.Add(homeState);
-            Settings.Fsm.Add(workState);
-            Settings.Fsm.Add(storeState);
+            Settings.Fsm.Add(homeStateGoing);
+            Settings.Fsm.Add(_homeState);
+            Settings.Fsm.Add(workStateGoing);
+            Settings.Fsm.Add(_workState);
+            Settings.Fsm.Add(storeStateGoing);
+            Settings.Fsm.Add(_storeState);
 
             indexState = 0;
             Settings.Fsm.Start(stateNames[indexState]);
@@ -68,8 +80,7 @@ namespace Test
             {
                 indexState = 0;
             }
-            Debug.Log(stateNames[indexState]);
-            Settings.Fsm.Invoke(stateNames[indexState]);
+            Settings.Fsm.Change(stateNames[indexState]);
         }
     }
 }
